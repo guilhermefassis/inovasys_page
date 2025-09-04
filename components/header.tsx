@@ -18,12 +18,11 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-      <link rel="icon" href="/favicon.ico" sizes="any" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="relative w-80 h-20 bg-muted rounded">
+            <div className="relative w-80 h-20">
               <Image
                 src="/inovaSys.png"
                 alt="InovaSys"
