@@ -136,7 +136,7 @@ export function HeroSection() {
 
                 <div className="space-y-4">
                   <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
-                    <div className="text-2xl font-bold">R$ 18.000+</div>
+                    <div className="text-2xl font-bold">R$ 8.000+</div>
                     <div className="text-blue-100">Economia mensal média</div>
                   </div>
 
@@ -159,7 +159,7 @@ export function HeroSection() {
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="relative z-10 p-4 text-white">
                       <div className="text-sm">Automações Ativas</div>
-                      <div className="text-xl font-bold">47 Processos</div>
+                      <div className="text-xl font-bold">27 Processos</div>
                     </div>
                   </div>
                 </div>

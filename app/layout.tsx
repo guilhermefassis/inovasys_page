@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     siteName: "InovaSys",
     locale: "pt_BR",
     type: "website",
-    icons: { icon: "/favicon.ico" },
   },
 };
 

@@ -35,36 +35,6 @@ const testimonials = [
     avatar:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=60&h=60&fit=crop&crop=face",
   },
-  {
-    name: "Marina Santos",
-    position: "Gestora de Operações",
-    company: "Indústria Alimentícia",
-    content:
-      "Profissionais altamente qualificados que entenderam perfeitamente nossas necessidades. As automações criadas nos poupam mais de 30 horas por semana. Fantástico!",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&h=60&fit=crop&crop=face",
-  },
-  {
-    name: "João Oliveira",
-    position: "Diretor Financeiro",
-    company: "Grupo Empresarial MA",
-    content:
-      "ROI impressionante! Em 6 meses já havíamos recuperado todo o investimento através das economias geradas pelas soluções implementadas. Parceria de longo prazo garantida!",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face",
-  },
-  {
-    name: "Lucia Ferreira",
-    position: "Proprietária",
-    company: "Clínica Médica Especializada",
-    content:
-      "O sistema de gestão personalizado revolucionou nossa clínica. Agendamentos automáticos, prontuários digitais e relatórios em tempo real. Atendimento excepcional!",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1609902726285-00668009f004?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDQzfHxoYXBweXxlbnwwfHx8fDE2MTU4OTMxMDU&ixlib=rb-1.2.1&q=80&w=2000",
-  },
 ];
 
 export function TestimonialsSection() {
@@ -170,11 +140,11 @@ export function TestimonialsSection() {
             </div>
             <div>•</div>
             <div>
-              <strong>98%</strong> taxa de satisfação
+              <strong>97%</strong> taxa de satisfação
             </div>
             <div>•</div>
             <div>
-              <strong>100%</strong> recomendação
+              <strong>99.9%</strong> recomendação
             </div>
           </div>
         </motion.div>

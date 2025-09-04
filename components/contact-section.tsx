@@ -94,7 +94,7 @@ Enviado através do site InovaSys Consultoria
 ID da Solicitação: ${data.contactId}`
       );
 
-      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=contato@InovaSysConsultoria.com.br&su=${subject}&body=${body}`;
+      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=contact@inovasys.tech&su=${subject}&body=${body}`;
 
       // Open Gmail in new tab
       window.open(gmailURL, "_blank");
@@ -196,7 +196,7 @@ ID da Solicitação: ${data.contactId}`
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Telefone</div>
-                  <div className="text-gray-600">(98) 99999-9999</div>
+                  <div className="text-gray-600">(98) 989083128</div>
                 </div>
               </div>
 
@@ -206,9 +206,7 @@ ID da Solicitação: ${data.contactId}`
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">
-                    contato@InovaSysConsultoria.com.br
-                  </div>
+                  <div className="text-gray-600">contato@inovasys.tech</div>
                 </div>
               </div>
 
