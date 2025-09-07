@@ -1,5 +1,53 @@
 import { NextRequest, NextResponse } from "next/server";
 
+async function validateContactInHubspot(email: string) {
+  const HUBSPOT_ACCESS_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN;
+
+  if (!HUBSPOT_ACCESS_TOKEN) {
+    console.warn(
+      "HUBSPOT_ACCESS_TOKEN não configurado - dados não serão enviados para o HubSpot"
+    );
+    return null;
+  }
+
+  try {
+    const response = await fetch(
+      "https://api.hubapi.com/crm/v3/objects/contacts",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${HUBSPOT_ACCESS_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error(
+        "Erro ao receber dados do HubSpot:",
+        response.status,
+        errorData
+      );
+      return null;
+    }
+
+    const hubspotContacts = await response.json();
+    const existsContact = hubspotContacts.results.filter((contact: any) => {
+      return contact.properties.email === email;
+    });
+
+    if (existsContact.length > 0) {
+      return existsContact[0];
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.error("Erro na consulta do HubSpot:", err);
+    return null;
+  }
+}
+
 async function sendToHubSpot(contactData: {
   name: string;
   email: string;
@@ -153,33 +201,42 @@ export async function POST(request: NextRequest) {
       ...contactData,
       timestamp: new Date().toISOString(),
     });
-
-    const hubspotContact = await sendToHubSpot(contactData);
-
+    const contact = await validateContactInHubspot(contactData.email);
+    console.log(JSON.stringify(contact));
     let hubspotDeal = null;
-    if (hubspotContact?.id) {
-      hubspotDeal = await createHubSpotDeal(
-        hubspotContact.id,
-        service,
-        message
-      );
+    if (!contact) {
+      const hubspotContact = await sendToHubSpot(contactData);
+      if (hubspotContact?.id) {
+        hubspotDeal = await createHubSpotDeal(
+          hubspotContact.id,
+          service,
+          message
+        );
+      }
+
+      const response = {
+        success: true,
+        message: "Solicitação enviada com sucesso!",
+        contactId: contactId,
+        hubspot: {
+          contact: hubspotContact
+            ? { id: hubspotContact.id, created: true }
+            : { created: false },
+          deal: hubspotDeal
+            ? { id: hubspotDeal.id, created: true }
+            : { created: false },
+        },
+      };
+      return NextResponse.json(response);
+    } else {
+      hubspotDeal = await createHubSpotDeal(contact.id, service, message);
+      const response = {
+        success: true,
+        message: "Solicitação enviada com sucesso!",
+        contactId: contactId,
+      };
+      return NextResponse.json(response);
     }
-
-    const response = {
-      success: true,
-      message: "Solicitação enviada com sucesso!",
-      contactId: contactId,
-      hubspot: {
-        contact: hubspotContact
-          ? { id: hubspotContact.id, created: true }
-          : { created: false },
-        deal: hubspotDeal
-          ? { id: hubspotDeal.id, created: true }
-          : { created: false },
-      },
-    };
-
-    return NextResponse.json(response);
   } catch (error) {
     console.error("Erro ao processar formulário de contato:", error);
 
