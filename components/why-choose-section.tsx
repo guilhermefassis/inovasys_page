@@ -64,7 +64,7 @@ const benefits = [
     title: "Crescimento Sustentável",
     description:
       "Soluções escaláveis que crescem junto com sua empresa, garantindo investimentos que se mantêm relevantes no futuro.",
-    stats: "95% dos clientes expandem os contratos",
+    stats: "90% dos clientes expandem os contratos",
   },
   {
     icon: <Users className="w-8 h-8" />,

@@ -127,7 +127,7 @@ export function TestimonialsSection() {
             Junte-se aos nossos clientes satisfeitos
           </h3>
           <p className="text-gray-600 mb-6">
-            Mais de 150 empresas já confiaram em nossas soluções. Sua empresa
+            Mais de 10 empresas já confiaram em nossas soluções. Sua empresa
             pode ser a próxima success story!
           </p>
 

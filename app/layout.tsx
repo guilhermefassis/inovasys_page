@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "InovaSys Consultoria | Transformação Digital para PMEs",
     description:
       "Especialistas em automação, IA, cloud e desenvolvimento web para pequenas e médias empresas.",
-    url: "https://InovaSysConsultoria.com.br",
+    url: "https://inovasys.tech",
     siteName: "InovaSys",
     locale: "pt_BR",
     type: "website",

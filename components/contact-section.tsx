@@ -68,40 +68,32 @@ export function ContactSection() {
         throw new Error(data.error || "Erro ao enviar formulário");
       }
 
-      // Create Gmail compose URL
-      const subject = encodeURIComponent(
-        `[InovaSys] Nova Solicitação de Consultoria - ${
-          formData.company || formData.name
-        }`
-      );
-      const body = encodeURIComponent(
+      const wppMessage = encodeURIComponent(
         `Olá InovaSys Consultoria,
 
-Gostaria de solicitar uma Consultoria sobre ${formData.service}.
+          Gostaria de solicitar uma Consultoria sobre ${formData.service}.
 
-DADOS DO CONTATO:
-Nome: ${formData.name}
-Empresa: ${formData.company}
-Email: ${formData.email}
-Telefone: ${formData.phone}
-Serviço de Interesse: ${formData.service}
+          DADOS DO CONTATO:
+          Nome: ${formData.name}
+          Empresa: ${formData.company}
+          Email: ${formData.email}
+          Telefone: ${formData.phone}
+          Serviço de Interesse: ${formData.service}
 
-MENSAGEM:
-${formData.message}
+          MENSAGEM:
+          ${formData.message}
 
----
-Enviado através do site InovaSys Consultoria
-ID da Solicitação: ${data.contactId}`
+          ---
+          Enviado através do site InovaSys Consultoria
+          ID da Solicitação: ${data.contactId}`
       );
 
-      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=contact@inovasys.tech&su=${subject}&body=${body}`;
+      const wppURL = `https://wa.me/5598984359379?text=${wppMessage}`;
 
-      // Open Gmail in new tab
-      window.open(gmailURL, "_blank");
+      window.open(wppURL, "_blank");
 
       setSubmitted(true);
 
-      // Reset form after showing success
       setTimeout(() => {
         setSubmitted(false);
         setFormData({
@@ -196,7 +188,7 @@ ID da Solicitação: ${data.contactId}`
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Telefone</div>
-                  <div className="text-gray-600">(98) 989083128</div>
+                  <div className="text-gray-600">(98) 98435-9379</div>
                 </div>
               </div>
 

@@ -159,7 +159,7 @@ export function HeroSection() {
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="relative z-10 p-4 text-white">
                       <div className="text-sm">Automações Ativas</div>
-                      <div className="text-xl font-bold">27 Processos</div>
+                      <div className="text-xl font-bold">17 Processos</div>
                     </div>
                   </div>
                 </div>
