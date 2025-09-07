@@ -24,6 +24,34 @@ interface FormData {
   message: string;
 }
 
+function openWhatsApp(message: string) {
+  const phone = "5598984359379";
+  const encodedMessage = encodeURIComponent(message);
+
+  // Detecta o dispositivo
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+
+  if (isMobile) {
+    if (isIOS) {
+      window.location.href = `whatsapp://send?phone=${phone}&text=${encodedMessage}`;
+    } else if (isAndroid) {
+      window.location.href = `intent://send?phone=${phone}&text=${encodedMessage}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+    } else {
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }
+    setTimeout(() => {
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+    }, 3000);
+  } else {
+    window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+  }
+}
+
 export function ContactSection() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -68,8 +96,7 @@ export function ContactSection() {
         throw new Error(data.error || "Erro ao enviar formulário");
       }
 
-      const wppMessage = encodeURIComponent(
-        `Olá InovaSys Consultoria,
+      const wppMessage = `Olá InovaSys Consultoria,
 
           Gostaria de solicitar uma Consultoria sobre ${formData.service}.
 
@@ -85,12 +112,8 @@ export function ContactSection() {
 
           ---
           Enviado através do site InovaSys Consultoria
-          ID da Solicitação: ${data.contactId}`
-      );
-
-      const wppURL = `https://wa.me/5598984359379?text=${wppMessage}`;
-
-      window.open(wppURL, "_blank");
+          ID da Solicitação: ${data.contactId}`;
+      openWhatsApp(wppMessage);
 
       setSubmitted(true);
 
