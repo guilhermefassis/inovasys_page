@@ -146,3 +146,9 @@ export function Header() {
     </header>
   );
 }
+
+export const metadata = {
+  title: "Serviços de Automação, IA, Cloud e Desenvolvimento Web | InovaSys",
+  description:
+    "Conheça os serviços da InovaSys: automação empresarial, inteligência artificial, soluções em cloud, desenvolvimento web, integração de sistemas e suporte 24/7 em São Luís - MA.",
+};
