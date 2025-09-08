@@ -140,7 +140,7 @@ export function TestimonialsSection() {
             </div>
             <div>•</div>
             <div>
-              <strong>97%</strong> taxa de satisfação
+              <strong>99%</strong> taxa de satisfação
             </div>
             <div>•</div>
             <div>

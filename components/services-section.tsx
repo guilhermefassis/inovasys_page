@@ -28,6 +28,15 @@ const services = [
     highlight: false,
   },
   {
+    icon: <Globe className="w-8 h-8" />,
+    title: "Desenvolvimento Web",
+    description:
+      "Landing pages e e-commerces otimizados para conversão, responsivos e com alta performance.",
+    features: ["Sites responsivos", "E-commerce completo", "SEO otimizado"],
+    price: "A partir de R$ 2.000",
+    highlight: true,
+  },
+  {
     icon: <Brain className="w-8 h-8" />,
     title: "Inteligência Artificial",
     description:
@@ -38,7 +47,7 @@ const services = [
       "Machine Learning",
     ],
     price: "A partir de R$ 2.500/mês",
-    highlight: true,
+    highlight: false,
   },
   {
     icon: <Cloud className="w-8 h-8" />,
@@ -47,15 +56,6 @@ const services = [
       "Migre para a nuvem com segurança e reduza custos de infraestrutura enquanto ganha escalabilidade.",
     features: ["Migração segura", "Backup automático", "Monitoramento 24/7"],
     price: "A partir de R$ 800/mês",
-    highlight: false,
-  },
-  {
-    icon: <Globe className="w-8 h-8" />,
-    title: "Desenvolvimento Web",
-    description:
-      "Landing pages e e-commerces otimizados para conversão, responsivos e com alta performance.",
-    features: ["Sites responsivos", "E-commerce completo", "SEO otimizado"],
-    price: "A partir de R$ 2.000",
     highlight: false,
   },
   {
@@ -73,15 +73,15 @@ const services = [
   },
   {
     icon: <Shield className="w-8 h-8" />,
-    title: "Suporte Técnico 24/7",
+    title: "Business Intelligence",
     description:
-      "Mantenha seus sistemas sempre funcionando com nosso suporte especializado e monitoramento contínuo.",
+      "Transforme seus dados em insights estratégicos com dashboards inteligentes e análises avançadas para decisões mais assertivas.",
     features: [
-      "Monitoramento proativo",
-      "Suporte especializado",
-      "Atualizações automáticas",
+      "Dashboards interativos",
+      "Relatórios automatizados",
+      "Análise preditiva",
     ],
-    price: "A partir de R$ 500/mês",
+    price: "A partir de R$ 1200/mês",
     highlight: false,
   },
 ];

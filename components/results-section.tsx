@@ -60,7 +60,7 @@ const Counter = ({
 const results = [
   {
     icon: <DollarSign className="w-6 h-6" />,
-    number: 18000,
+    number: 8000,
     prefix: "R$ ",
     suffix: "+",
     label: "Economia Média Mensal",
@@ -69,7 +69,7 @@ const results = [
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
-    number: 65,
+    number: 60,
     suffix: "%",
     label: "Aumento Produtividade",
     description: "Melhoria na eficiência dos processos empresariais",
@@ -83,7 +83,7 @@ const results = [
   },
   {
     icon: <Users className="w-6 h-6" />,
-    number: 150,
+    number: 17,
     suffix: "+",
     label: "Empresas Transformadas",
     description: "Clientes satisfeitos em diversos segmentos",
@@ -134,7 +134,7 @@ export function ResultsSection() {
             Nossa Eficiência
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Mais de 150 empresas já transformaram seus negócios conosco. Veja os
+            Mais de 17 empresas já transformaram seus negócios conosco. Veja os
             números que falam por si só.
           </p>
         </motion.div>
