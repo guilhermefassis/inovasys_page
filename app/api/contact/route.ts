@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 async function validateContactInHubspot(email: string) {
@@ -133,6 +134,7 @@ async function createHubSpotDeal(
               Date.now() + 30 * 24 * 60 * 60 * 1000
             ).toISOString(),
             hubspot_owner_id: "",
+            mensagem: message || "",
           },
           associations: [
             {
@@ -170,6 +172,17 @@ async function createHubSpotDeal(
   }
 }
 
+const securityHeaders = {
+  "Content-Security-Policy":
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.netlify.app; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;",
+  "X-Frame-Options": "DENY",
+  "X-Content-Type-Options": "nosniff",
+  "X-XSS-Protection": "1; mode=block",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+};
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -179,7 +192,7 @@ export async function POST(request: NextRequest) {
     if (!name || !email || !service) {
       return NextResponse.json(
         { error: "Nome, email e serviço são obrigatórios" },
-        { status: 400 }
+        { status: 400, headers: securityHeaders }
       );
     }
 
@@ -227,7 +240,7 @@ export async function POST(request: NextRequest) {
             : { created: false },
         },
       };
-      return NextResponse.json(response);
+      return NextResponse.json(response, { headers: securityHeaders });
     } else {
       hubspotDeal = await createHubSpotDeal(contact.id, service, message);
       const response = {
@@ -235,7 +248,7 @@ export async function POST(request: NextRequest) {
         message: "Solicitação enviada com sucesso!",
         contactId: contactId,
       };
-      return NextResponse.json(response);
+      return NextResponse.json(response, { headers: securityHeaders });
     }
   } catch (error) {
     console.error("Erro ao processar formulário de contato:", error);
@@ -251,11 +264,14 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  return NextResponse.json({
-    message: "API de contato da InovaSys Consultoria está funcionando!",
-    timestamp: new Date().toISOString(),
-    hubspot: {
-      configured: !!process.env.HUBSPOT_ACCESS_TOKEN,
+  return NextResponse.json(
+    {
+      message: "API de contato da InovaSys Consultoria está funcionando!",
+      timestamp: new Date().toISOString(),
+      hubspot: {
+        configured: !!process.env.HUBSPOT_ACCESS_TOKEN,
+      },
     },
-  });
+    { headers: securityHeaders }
+  );
 }

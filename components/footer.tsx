@@ -56,7 +56,7 @@ export function Footer() {
             <a href="/" aria-label="InovaSys Consultoria - Página Inicial">
               <div className="relative w-48 h-8 mb-6 bg-white/10 rounded">
                 <Image
-                  src="https://cdn.abacus.ai/images/f173bfe6-e645-4fe0-89a1-77e6b13de067.png"
+                  src="/inovasys-white.png"
                   alt="Logo InovaSys Consultoria - Transformação Digital"
                   fill
                   className="object-contain brightness-0 invert"
