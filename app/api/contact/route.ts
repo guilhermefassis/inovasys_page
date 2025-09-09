@@ -81,7 +81,7 @@ async function sendToHubSpot(contactData: {
             firstname: contactData.name.split(" ")[0],
             lastname: contactData.name.split(" ").slice(1).join(" ") || "",
             company: contactData.company || "",
-            phone: contactData.phone || "",
+            phone: contactData.phone ? `+${contactData.phone}` : "",
             hs_lead_status: "NEW",
             lifecyclestage: "lead",
           },
