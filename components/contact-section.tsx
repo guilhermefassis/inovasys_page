@@ -4,18 +4,19 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
-  Phone,
   Mail,
-  MapPin,
-  Clock,
   Send,
-  CheckCircle,
   User,
   Building,
   MessageSquare,
+  CheckCircle,
+  Clock,
+  MapPin,
+  Phone,
 } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { WhatsAppConfirm } from "@/components/whatsapp-app-confirm";
 
 interface FormData {
   name: string;
@@ -24,34 +25,6 @@ interface FormData {
   phone: string;
   service: string;
   message: string;
-}
-
-function openWhatsApp(message: string) {
-  const phone = "5598984359379";
-  const encodedMessage = encodeURIComponent(message);
-
-  // Detecta o dispositivo
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isAndroid = /Android/.test(navigator.userAgent);
-
-  if (isMobile) {
-    if (isIOS) {
-      window.location.href = `whatsapp://send?phone=${phone}&text=${encodedMessage}`;
-    } else if (isAndroid) {
-      window.location.href = `intent://send?phone=${phone}&text=${encodedMessage}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
-    } else {
-      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
-    }
-    setTimeout(() => {
-      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
-    }, 3000);
-  } else {
-    window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
-  }
 }
 
 export function ContactSection() {
@@ -65,6 +38,8 @@ export function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [showWhatsAppConfirm, setShowWhatsAppConfirm] = useState(false);
+  const [wppMessage, setWppMessage] = useState<string>("");
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -83,40 +58,36 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Submit to our API
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.error || "Erro ao enviar formulário");
       }
 
-      const wppMessage = `Olá InovaSys Consultoria,
+      const msg = `Olá InovaSys Consultoria,
+        Gostaria de solicitar uma Consultoria sobre ${formData.service}.
 
-          Gostaria de solicitar uma Consultoria sobre ${formData.service}.
+        DADOS DO CONTATO:
+        Nome: ${formData.name}
+        Empresa: ${formData.company}
+        Email: ${formData.email}
+        Telefone: ${formData.phone}
+        Serviço de Interesse: ${formData.service}
 
-          DADOS DO CONTATO:
-          Nome: ${formData.name}
-          Empresa: ${formData.company}
-          Email: ${formData.email}
-          Telefone: ${formData.phone}
-          Serviço de Interesse: ${formData.service}
+        MENSAGEM:
+        ${formData.message}
 
-          MENSAGEM:
-          ${formData.message}
+        ---
+        Enviado através do site InovaSys Consultoria
+        ID da Solicitação: ${data.contactId}`;
 
-          ---
-          Enviado através do site InovaSys Consultoria
-          ID da Solicitação: ${data.contactId}`;
-      openWhatsApp(wppMessage);
-
+      setWppMessage(msg);
+      setShowWhatsAppConfirm(true);
       setSubmitted(true);
 
       setTimeout(() => {
@@ -188,7 +159,6 @@ export function ContactSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -254,7 +224,6 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* Quick Benefits */}
             <div className="bg-blue-50 rounded-xl p-6">
               <h4 className="font-semibold text-gray-900 mb-4">
                 Por que nos escolher?
@@ -279,8 +248,6 @@ export function ContactSection() {
               </ul>
             </div>
           </motion.div>
-
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -295,6 +262,8 @@ export function ContactSection() {
                 Solicite sua Consultoria Gratuita
               </h3>
 
+              {/* Campos do formulário - mantém os seus atuais */}
+              {/* Nome + Email */}
               <div className="grid md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -333,6 +302,7 @@ export function ContactSection() {
                 </div>
               </div>
 
+              {/* Empresa + Telefone */}
               <div className="grid md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -355,23 +325,22 @@ export function ContactSection() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Telefone
                   </label>
-                  <div>
-                    <PhoneInput
-                      country={"br"}
-                      value={formData.phone}
-                      onChange={(phone) =>
-                        setFormData((prev) => ({ ...prev, phone }))
-                      }
-                      inputClass="!w-full !h-12 !pl-12 !pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                      containerClass="w-full"
-                      buttonClass="!border-none !bg-transparent"
-                      dropdownClass="!bg-white"
-                      enableSearch={true} // opcional: deixa pesquisar país
-                    />
-                  </div>
+                  <PhoneInput
+                    country={"br"}
+                    value={formData.phone}
+                    onChange={(phone) =>
+                      setFormData((prev) => ({ ...prev, phone }))
+                    }
+                    inputClass="!w-full !h-12 !pl-12 !pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    containerClass="w-full"
+                    buttonClass="!border-none !bg-transparent"
+                    dropdownClass="!bg-white"
+                    enableSearch={true}
+                  />
                 </div>
               </div>
 
+              {/* Serviço */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Serviço de Interesse *
@@ -405,6 +374,7 @@ export function ContactSection() {
                 </select>
               </div>
 
+              {/* Mensagem */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Mensagem
@@ -448,6 +418,12 @@ export function ContactSection() {
           </motion.div>
         </div>
       </div>
+      {showWhatsAppConfirm && (
+        <WhatsAppConfirm
+          message={wppMessage}
+          onClose={() => setShowWhatsAppConfirm(false)}
+        />
+      )}
     </section>
   );
 }
