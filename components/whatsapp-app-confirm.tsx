@@ -52,7 +52,7 @@ export function WhatsAppConfirm({ message, onClose }: WhatsAppConfirmProps) {
         </p>
         <div className="flex justify-end space-x-3">
           <button
-            onClick={() => setShowConfirm(false)}
+            onClick={onClose}
             className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
           >
             Cancelar
