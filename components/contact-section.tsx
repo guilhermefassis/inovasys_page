@@ -14,6 +14,8 @@ import {
   Building,
   MessageSquare,
 } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface FormData {
   name: string;
@@ -353,15 +355,18 @@ export function ContactSection() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Telefone
                   </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="tel"
-                      name="phone"
+                  <div>
+                    <PhoneInput
+                      country={"br"}
                       value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                      placeholder="(11) 99999-9999"
+                      onChange={(phone) =>
+                        setFormData((prev) => ({ ...prev, phone }))
+                      }
+                      inputClass="!w-full !h-12 !pl-12 !pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      containerClass="w-full"
+                      buttonClass="!border-none !bg-transparent"
+                      dropdownClass="!bg-white"
+                      enableSearch={true} // opcional: deixa pesquisar país
                     />
                   </div>
                 </div>
