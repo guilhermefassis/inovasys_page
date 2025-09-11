@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { WHATSAPP_NUMBER_STR } from "@/config/config";
 
 interface WhatsAppConfirmProps {
   message: string;
@@ -9,7 +10,7 @@ interface WhatsAppConfirmProps {
 export function WhatsAppConfirm({ message, onClose }: WhatsAppConfirmProps) {
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const phone = process.env.NEXT_PUBLIC_PHONE;
+  const phone = WHATSAPP_NUMBER_STR;
 
   const encodedMessage = encodeURIComponent(message);
 

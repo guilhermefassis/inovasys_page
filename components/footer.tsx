@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Mail, Phone, MapPin, Clock, ArrowUp } from "lucide-react";
+import { WHATSAPP_NUMBER_VIEW, EMAIL_VIEW } from "@/config/config";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -81,7 +82,7 @@ export function Footer() {
                   className="hover:text-white transition-colors"
                   itemProp="telephone"
                 >
-                  (98) 98435-9379
+                  {WHATSAPP_NUMBER_VIEW}
                 </a>
               </div>
               <div className="flex items-center text-gray-400">
@@ -91,7 +92,7 @@ export function Footer() {
                   className="hover:text-white transition-colors"
                   itemProp="email"
                 >
-                  contato@inovasys.tech
+                  {EMAIL_VIEW}
                 </a>
               </div>
               <div className="flex items-center text-gray-400">

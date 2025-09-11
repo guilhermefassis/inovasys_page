@@ -17,6 +17,7 @@ import {
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { WhatsAppConfirm } from "@/components/whatsapp-app-confirm";
+import { WHATSAPP_NUMBER_VIEW, EMAIL_VIEW } from "@/config/config";
 
 interface FormData {
   name: string;
@@ -183,7 +184,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Telefone</div>
-                  <div className="text-gray-600">(98) 98435-9379</div>
+                  <div className="text-gray-600">{WHATSAPP_NUMBER_VIEW}</div>
                 </div>
               </div>
 
@@ -193,7 +194,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">contato@inovasys.tech</div>
+                  <div className="text-gray-600">{EMAIL_VIEW}</div>
                 </div>
               </div>
 
